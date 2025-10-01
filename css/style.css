@@ -1,0 +1,14 @@
+body {
+    background-color: rgb(0 5 30);
+}
+
+main {
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 60px auto;
+    padding: 50px;
+    text-align: center;
+    border-radius: 20px;
+}
