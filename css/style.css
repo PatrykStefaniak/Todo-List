@@ -1,5 +1,6 @@
 body {
-    background-color: rgb(0 5 30);
+    background-color: rgb(128 149 255);
+    font-size: 16px;
 }
 
 main {
@@ -11,4 +12,93 @@ main {
     padding: 50px;
     text-align: center;
     border-radius: 20px;
+}
+
+.centerContent {
+    display: flex;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* input container */
+
+#inputContainer {}
+
+input {
+    border: 0;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+.inputButton {
+    border-radius: 0 10px 10px 0;
+    border: 0;
+    background-color: white;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.inputButton:hover {
+    background-color: aliceblue;
+}
+
+.inputButton:active {
+    background-color: rgb(230, 243, 253);
+}
+
+/* table */
+
+#tableContainer {
+    margin-top: 30px;
+}
+
+table {
+    width: 50%;
+}
+
+tr {
+    background-color: white;
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px 0;
+}
+
+tr td:nth-child(1) {
+    flex: 10;
+    text-align: left;
+}
+
+tr td:nth-child(2), tr td:nth-child(3) {
+    flex: 1;
+}
+
+td {
+    margin: auto;
+}
+
+/* icons */
+
+.icon {
+    font-size: 10px;
+}
+
+.pen {
+    content: url('../img/pen.svg');
+}
+
+.trashCan {
+    content: url('../img/trash-can.svg');
+}
+
+.plus {
+    content: url('../img/plus.svg');
+}
+
+.penToSquare {
+    content: url('../img/pen-to-square.svg');
 }
