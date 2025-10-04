@@ -1,11 +1,24 @@
 import {Storage} from './storage.js';
 
-const storage = new Storage();
+const storage = new Storage('todoList');
 
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
         initListeners();
     }
+
+    const storageItems = storage.getAll();
+
+    if (!storageItems.length) {
+        return;
+    }
+
+    const table = document.querySelector('#table-container table');
+
+    storageItems.forEach((item) => {
+        const parsed = JSON.parse(item);
+        table.append(createTr(parsed.text, parsed.id));
+    });
 }
 
 function initListeners() {
@@ -17,18 +30,31 @@ function initListeners() {
 function onAddTodoItemClick() {
     const input = document.getElementById('task-input');
     const text = input.value;
+    const table = document.querySelector('#table-container table');
 
     if (text === '') {
         return showError('Task name cannot be empty');
     }
 
-    const tr = document.createElement('tr');
-    tr.append(createTextTd(text), createEditTd(), createDeleteTd());
-
-    const table = document.querySelector('#table-container table');
+    const tr = createTr(text);
 
     table.append(tr);
     input.value = '';
+
+    storage.setObject(tr.id, {
+        id: tr.id,
+        completed: false,
+        text: text
+    });
+}
+
+function createTr(text, id) {
+    const tr = document.createElement('tr');
+
+    tr.append(createTextTd(text), createEditTd(), createDeleteTd());
+    tr.id = id || crypto.randomUUID();
+
+    return tr;
 }
 
 function createTextTd(text) {
@@ -59,6 +85,7 @@ function createActionTd(isDelete) {
     const handler = () => {
         if (isDelete) {
             button.removeEventListener('click', handler);
+            storage.remove(el.parentElement.id);
             onDelete(el);
         } else {
             onEdit(el);
@@ -87,6 +114,12 @@ function onEdit(td) {
         if (value == '') {
             return showError('Task name cannot be empty');
         }
+
+        const storageTask = storage.getObject(tr.id);
+
+        storageTask.text = input.value;
+
+        storage.setObject(tr.id, storageTask);
 
         textTd.textContent = input.value;
 
