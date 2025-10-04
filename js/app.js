@@ -1,3 +1,7 @@
+import {Storage} from './storage.js';
+
+const storage = new Storage();
+
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
         initListeners();
@@ -7,7 +11,7 @@ document.onreadystatechange = function () {
 function initListeners() {
     const button = document.getElementById('add-button');
 
-    button.addEventListener('click', this.onAddTodoItemClick);
+    button.addEventListener('click', onAddTodoItemClick);
 }
 
 function onAddTodoItemClick() {
