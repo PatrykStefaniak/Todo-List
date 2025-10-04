@@ -44,6 +44,17 @@ button:active {
     background-color: rgb(230, 243, 253);
 }
 
+/* title */
+
+h1 {
+    margin-right: 5px;
+}
+
+#title-container .icon {
+    width: 34px;
+    cursor: default;
+}
+
 /* input container */
 
 #input-container {}
@@ -58,6 +69,45 @@ input {
     border-radius: 0 10px 10px 0;
 }
 
+/* info messages */
+
+#info-container div {
+    min-height: 21px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.error {
+    animation: error-animation;
+    animation-duration: 2s;
+}
+
+@keyframes error-animation {
+    0%   {background-color: transparent;}
+    25%  {background-color: red;}
+    75%  {color: inherit}
+    100% {
+        background-color: transparent;
+        color: transparent
+    }
+}
+
+.success {
+    animation: success-animation;
+    animation-duration: 2s;
+}
+
+@keyframes success-animation {
+  0%   {background-color: transparent;}
+  25%  {background-color: greenyellow;}
+  75%  {color: inherit}
+  100% {
+        background-color: transparent;
+        color: transparent
+    }
+}
+
 /* table */
 
 #table-container {
@@ -65,7 +115,7 @@ input {
 }
 
 table {
-    width: 50%;
+    width: 340px;
 }
 
 tr {
@@ -90,6 +140,21 @@ td {
     margin: auto;
 }
 
+.text-td {
+        display: flex;
+}
+
+.text-td input {
+    border: 1px solid black;
+    border-right: 0;
+}
+
+.text-td button {
+    border: 1px solid black;
+    border-left: 0;
+    border-radius: 0 10px 10px 0;
+}
+
 /* icons */
 
 .icon {
@@ -111,4 +176,8 @@ td {
 
 .icon-pen-to-square {
     content: url('../img/pen-to-square.svg');
+}
+
+.icon-check {
+    content: url('../img/check.svg');
 }

@@ -9,31 +9,21 @@
     </head>
     <body>
         <main>
-            <h1>ToDo List</h1>
+            <div id="title-container" class="center-content">
+                <h1>ToDo List</h1>
+                <div class="icon icon-pen-to-square"></div>
+            </div>
             <div id="input-container" class="center-content">
-                <input type="text" placeholder="Add your task" />
+                <input id="task-input" type="text" placeholder="Add your task" />
                 <button id="add-button">
                     <div class="icon icon-plus"></div>
                 </button>
             </div>
-            <div id="info-container" class="hidden">
-                info message goes here
+            <div id="info-container" class="center-content">
+                <div></div>
             </div>
             <div id="table-container" class="center-content">
                 <table>
-                    <tr>
-                        <td>Some item</td>
-                        <td>
-                            <button>
-                                <div class="icon icon-pen"></div>
-                            </button>
-                        </td>
-                        <td>
-                            <button>
-                                <div class="icon icon-trash-can"></div>
-                            </button>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </main>
