@@ -1,5 +1,5 @@
 function initListeners() {
-    const button = document.getElementById('addButton');
+    const button = document.getElementById('add-button');
 
     button.addEventListener('click', this.onAddTodoItemClick);
 }

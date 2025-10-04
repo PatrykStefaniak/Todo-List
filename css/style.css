@@ -1,6 +1,7 @@
 body {
     background-color: rgb(128 149 255);
     font-size: 16px;
+    font-family: system-ui;
 }
 
 main {
@@ -14,7 +15,7 @@ main {
     border-radius: 20px;
 }
 
-.centerContent {
+.center-content {
     display: flex;
     justify-content: center;
 }
@@ -23,9 +24,29 @@ main {
     display: none;
 }
 
+button {
+    border-radius: 20px;
+    border: 0;
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button .icon {
+    width: 20px;
+}
+
+button:hover {
+    background-color: aliceblue;
+}
+
+button:active {
+    background-color: rgb(230, 243, 253);
+}
+
 /* input container */
 
-#inputContainer {}
+#input-container {}
 
 input {
     border: 0;
@@ -33,26 +54,13 @@ input {
     border-radius: 10px 0 0 10px;
 }
 
-.inputButton {
+#add-button {
     border-radius: 0 10px 10px 0;
-    border: 0;
-    background-color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.inputButton:hover {
-    background-color: aliceblue;
-}
-
-.inputButton:active {
-    background-color: rgb(230, 243, 253);
 }
 
 /* table */
 
-#tableContainer {
+#table-container {
     margin-top: 30px;
 }
 
@@ -62,7 +70,7 @@ table {
 
 tr {
     background-color: white;
-    padding: 16px;
+    padding: 8px 8px 8px 16px;
     border-radius: 10px;
     display: flex;
     margin: 10px 0;
@@ -73,8 +81,9 @@ tr td:nth-child(1) {
     text-align: left;
 }
 
-tr td:nth-child(2), tr td:nth-child(3) {
+tr td:nth-child(n + 2) {
     flex: 1;
+    margin-right: 5px;
 }
 
 td {
@@ -84,21 +93,22 @@ td {
 /* icons */
 
 .icon {
-    font-size: 10px;
+    width: 10px;
+    cursor: pointer;
 }
 
-.pen {
+.icon-pen {
     content: url('../img/pen.svg');
 }
 
-.trashCan {
+.icon-trash-can {
     content: url('../img/trash-can.svg');
 }
 
-.plus {
+.icon-plus {
     content: url('../img/plus.svg');
 }
 
-.penToSquare {
+.icon-pen-to-square {
     content: url('../img/pen-to-square.svg');
 }
