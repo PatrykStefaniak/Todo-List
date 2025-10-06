@@ -25,6 +25,23 @@ function initListeners() {
     const button = document.getElementById('add-button');
 
     button.addEventListener('click', onAddTodoItemClick);
+
+    document.getElementById('table-container').addEventListener('click', (e) => {
+        const tr = e.target.closest('tr');
+
+        if (!tr) {
+            return;
+        }
+
+        toggleCheckbox(tr);
+    });
+}
+
+function toggleCheckbox(tr) {
+    const input = tr.querySelector('.checkbox-td input');
+    const checked = input.checked = !input.checked;
+
+    getTextTd(tr).classList[checked ? 'add' : 'remove']('completed-task');
 }
 
 function onAddTodoItemClick() {
@@ -50,11 +67,26 @@ function onAddTodoItemClick() {
 
 function createTr(text, id) {
     const tr = document.createElement('tr');
+    const checkboxTd = createCheckboxTd();
 
-    tr.append(createTextTd(text), createEditTd(), createDeleteTd());
+    tr.append(checkboxTd, createTextTd(text), createEditTd(), createDeleteTd());
     tr.id = id || crypto.randomUUID();
 
     return tr;
+}
+
+function createCheckboxTd() {
+    const el = document.createElement('td');
+    const checkbox = document.createElement('input');
+
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.classList.add('hidden');
+
+    el.classList.add('checkbox-td');
+
+    el.append(checkbox);
+
+    return el;
 }
 
 function createTextTd(text) {
@@ -80,7 +112,13 @@ function createActionTd(isDelete) {
     button.append(div);
     el.append(button);
 
-    div.classList.add('icon', isDelete ? 'icon-trash-can' : 'icon-pen')
+    if (isDelete) {
+        div.classList.add('icon', 'icon-trash-can');
+        el.classList.add('delete-td');
+    } else {
+        div.classList.add('icon', 'icon-pen');
+        el.classList.add('edit-td');
+    }
 
     const handler = () => {
         if (isDelete) {
@@ -103,8 +141,8 @@ function onDelete(td) {
 
 function onEdit(td) {
     const tr = td.parentElement;
-    const textTd = tr.firstChild;
-    const editTd = tr.childNodes[1];
+    const textTd = getTextTd(tr);
+    const editTd = getEditTd(tr);
     const input = document.createElement('input');
     const confirmButton = document.createElement('button');
     const confirmIcon = document.createElement('div');
@@ -157,4 +195,12 @@ function showError(message) {
         container.classList.remove('error');
         container.textContent = '';
     });
+}
+
+function getTextTd(tr) {
+    return tr.querySelector('.text-td');
+}
+
+function getEditTd(tr) {
+    return tr.querySelector('.edit-td');
 }
