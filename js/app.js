@@ -17,7 +17,7 @@ document.onreadystatechange = function () {
 
     storageItems.forEach((item) => {
         const parsed = JSON.parse(item);
-        table.append(createTr(parsed.text, parsed.id));
+        table.append(createTr(parsed.text, parsed.id, parsed.completed));
     });
 }
 
@@ -29,11 +29,7 @@ function initListeners() {
     document.getElementById('table-container').addEventListener('click', (e) => {
         const tr = e.target.closest('tr');
 
-        if (!tr) {
-            return;
-        }
-
-        toggleCheckbox(tr);
+        tr && toggleCheckbox(tr);
     });
 }
 
@@ -42,6 +38,12 @@ function toggleCheckbox(tr) {
     const checked = input.checked = !input.checked;
 
     getTextTd(tr).classList[checked ? 'add' : 'remove']('completed-task');
+
+    const storageItem = storage.getObject(tr.id);
+
+    storageItem.completed = checked;
+
+    storage.setObject(tr.id, storageItem);
 }
 
 function onAddTodoItemClick() {
@@ -65,22 +67,23 @@ function onAddTodoItemClick() {
     });
 }
 
-function createTr(text, id) {
+function createTr(text, id, completed) {
     const tr = document.createElement('tr');
-    const checkboxTd = createCheckboxTd();
+    const checkboxTd = createCheckboxTd(completed);
 
-    tr.append(checkboxTd, createTextTd(text), createEditTd(), createDeleteTd());
+    tr.append(checkboxTd, createTextTd(text, completed), createEditTd(), createDeleteTd());
     tr.id = id || crypto.randomUUID();
 
     return tr;
 }
 
-function createCheckboxTd() {
+function createCheckboxTd(completed) {
     const el = document.createElement('td');
     const checkbox = document.createElement('input');
 
     checkbox.setAttribute('type', 'checkbox');
     checkbox.classList.add('hidden');
+    checkbox.checked = completed;
 
     el.classList.add('checkbox-td');
 
@@ -89,10 +92,14 @@ function createCheckboxTd() {
     return el;
 }
 
-function createTextTd(text) {
+function createTextTd(text, completed) {
     const el = document.createElement('td');
+
     el.classList.add('text-td');
     el.textContent = text;
+
+    completed && el.classList.add('completed-task');
+
     return el;
 }
 
